@@ -28,4 +28,9 @@ contract SimpleWallet {
         (bool success, ) = _to.call{value: _weiAmount}("");
         require(success, "Transfer failed");
     }
+
+    function withdrawFromContract(uint _weiAmount) external onlyOwner {
+        (bool success, ) = owner.call{value: _weiAmount}("");
+        require(success, "Transfer to owner failed"); 
+    }
 }
