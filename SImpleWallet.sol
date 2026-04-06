@@ -41,6 +41,7 @@ contract SimpleWallet {
         require(success, "Transaction failed");
     }
 
+    // Receive money from user to owner
     function receiveFromUser() external payable {
         require(msg.value >= 0, "Wei value must be greater than 0");
 
@@ -51,4 +52,8 @@ contract SimpleWallet {
     function getOwnerBalanceInWei() external view returns (uint) {
         return owner.balance;
     }
+
+    receive() external payable {}
+
+    fallback() external payable {}
 }
