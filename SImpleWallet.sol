@@ -4,6 +4,7 @@ pragma solidity ^0.8.18; // stating our version
 contract SimpleWallet {
     address public owner;
     event Transfer(address receiver, uint amount);
+    event Recieve(address sender, address reciever, uint amount);
 
     constructor() {
         owner = msg.sender;
@@ -50,6 +51,8 @@ contract SimpleWallet {
 
         (bool success, ) = owner.call{value: msg.value}("");
         require(success, "Transaction failed");
+
+        emit Recieve(msg.sender, owner, msg.value);
     }
 
     function getOwnerBalanceInWei() external view returns (uint) {
