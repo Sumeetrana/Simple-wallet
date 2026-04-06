@@ -13,7 +13,9 @@ contract SimpleWallet {
         _;
     }
 
-    function transferToContract() external payable {
-        
+    function transferToContract() external payable {}
+
+    function getContractBalanceInWei() external view returns (uint) {
+        return address(this).balance;
     }
 }
