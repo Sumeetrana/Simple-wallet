@@ -3,6 +3,7 @@ pragma solidity ^0.8.18; // stating our version
 
 contract SimpleWallet {
     address public owner;
+    event Transfer(address receiver, uint amount);
 
     constructor() {
         owner = msg.sender;
@@ -28,6 +29,8 @@ contract SimpleWallet {
 
         (bool success, ) = _to.call{value: _weiAmount}("");
         require(success, "Transfer failed");
+
+        emit Transfer(_to, _weiAmount);
     }
 
     function withdrawFromContract(uint _weiAmount) external onlyOwner {
