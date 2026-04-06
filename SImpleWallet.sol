@@ -12,4 +12,8 @@ contract SimpleWallet {
         require(msg.sender == owner, "You don't have access");
         _;
     }
+
+    function transferToContract() external payable {
+        
+    }
 }
