@@ -18,4 +18,14 @@ contract SimpleWallet {
     function getContractBalanceInWei() external view returns (uint) {
         return address(this).balance;
     }
+
+    function transferToUserViaContract(
+        address payable _to,
+        uint _weiAmount
+    ) external {
+        require(address(this).balance >= _weiAmount, "Insufficient balance");
+
+        (bool success, ) = _to.call{value: _weiAmount}("");
+        require(success, "Transfer failed");
+    }
 }
