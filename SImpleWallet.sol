@@ -32,12 +32,23 @@ contract SimpleWallet {
 
     function withdrawFromContract(uint _weiAmount) external onlyOwner {
         (bool success, ) = owner.call{value: _weiAmount}("");
-        require(success, "Transfer to owner failed"); 
+        require(success, "Transfer to owner failed");
     }
 
     // Transfering directly from thr user's account to another user's account
     function transferToUserViaMsgValue(address _to) external payable {
         (bool success, ) = _to.call{value: msg.value}("");
         require(success, "Transaction failed");
+    }
+
+    function receiveFromUser() external payable {
+        require(msg.value >= 0, "Wei value must be greater than 0");
+
+        (bool success, ) = owner.call{value: msg.value}("");
+        require(success, "Transaction failed");
+    }
+
+    function getOwnerBalanceInWei() external view returns (uint) {
+        return owner.balance;
     }
 }
