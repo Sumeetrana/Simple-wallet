@@ -44,6 +44,8 @@ contract SimpleWallet {
         address payable _to,
         uint _weiAmount
     ) external {
+        // address(0) = 0x0000000
+        require(_to != address(0), "Address format incorrect");
         require(address(this).balance >= _weiAmount, "Insufficient balance");
 
         (bool success, ) = _to.call{value: _weiAmount}("");
@@ -77,6 +79,9 @@ contract SimpleWallet {
 
     // Transfering directly from thr user's account to another user's account
     function transferToUserViaMsgValue(address _to) external payable {
+        // address(0) = 0x0000000
+        require(_to != address(0), "Address format incorrect");
+ 
         (bool success, ) = _to.call{value: msg.value}("");
         require(success, "Transaction failed");
 
