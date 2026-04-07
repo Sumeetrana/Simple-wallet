@@ -81,7 +81,7 @@ contract SimpleWallet {
     function transferToUserViaMsgValue(address _to) external payable {
         // address(0) = 0x0000000
         require(_to != address(0), "Address format incorrect");
- 
+
         (bool success, ) = _to.call{value: msg.value}("");
         require(success, "Transaction failed");
 
@@ -124,6 +124,10 @@ contract SimpleWallet {
         returns (Transaction[] memory)
     {
         return transactionHistory;
+    }
+
+    function changeOwner(address newOwner) external onlyOwner {
+        owner = newOwner;
     }
 
     receive() external payable {
