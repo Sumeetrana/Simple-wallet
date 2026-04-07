@@ -9,4 +9,9 @@ contract Polymorphism {
     function add(uint a, uint b, uint c) external pure returns (uint) {
         return a + b + c;
     }
+
+    function add(bool a, bool b) external pure returns (bool) {
+        a = true;
+        return b;
+    }
 }
